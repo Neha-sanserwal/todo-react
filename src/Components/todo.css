@@ -1,19 +1,26 @@
-span::before {
-	content: ' \25AE';
-	color: lightblue;
-	margin-right: 0.5rem;
-	display: inline;
-	font-size: 1.3rem;
+li {
+	font-size: 1.2rem;
 }
 
-
-li {
+li::before {
+	content: ' \25AE';
+	margin-right: 0.5rem;
+	display: inline;
 	font-size: 1.5rem;
+	text-decoration: none !important;
+}
+
+.un-complete::before {
+	color: lightblue;
+
+}
+
+.complete::before {
+	color: lightseagreen;
 }
 
 .complete {
-	content: "\2022";
-	color: lightblue;
+	text-decoration: line-through;
 }
 
 ul {

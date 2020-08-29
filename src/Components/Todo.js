@@ -1,29 +1,10 @@
 import React, { Component } from "react";
 import "./todo.css";
 import Input from "./Input";
-import Task from "./Task";
-
-const TodoList = (props) => {
-  const { changeStatus, tasks } = props;
-  const list = Object.keys(tasks).map((taskId) => {
-    const { message, isCompleted } = tasks[taskId];
-    return (
-      <Task
-        key={taskId}
-        message={message}
-        isCompleted={isCompleted}
-        taskId={taskId}
-        changeStatus={changeStatus}
-      />
-    );
-  });
-  return <div className="tasks">{list}</div>;
-};
-
+import TaskList from "./TaskList";
 class Todo extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       tasks: {},
       lastTodoId: 0,
@@ -50,7 +31,7 @@ class Todo extends Component {
     return (
       <div className="todo">
         <h1>Todo</h1>
-        <TodoList tasks={this.state.tasks} changeStatus={this.changeTask} />
+        <TaskList tasks={this.state.tasks} changeStatus={this.changeTask} />
         <Input saveTask={this.saveTask} />
       </div>
     );

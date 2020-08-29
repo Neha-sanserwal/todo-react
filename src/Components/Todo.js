@@ -1,9 +1,16 @@
 import React, { Component } from "react";
-
+import "./todo.css";
+const Task = (props) => {
+  return (
+    <li className="completed" key={props.taskId}>
+      {props.message}
+    </li>
+  );
+};
 const TodoList = (props) => {
   const list = Object.keys(props.tasks).map((taskId, index) => {
     const { message } = props.tasks[taskId];
-    return <li key={taskId}>{message}</li>;
+    return <Task key={taskId} message={message} />;
   });
   return <ul>{list}</ul>;
 };

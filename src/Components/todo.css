@@ -1,0 +1,21 @@
+span::before {
+	content: ' \25AE';
+	color: lightblue;
+	margin-right: 0.5rem;
+	display: inline;
+	font-size: 1.3rem;
+}
+
+
+li {
+	font-size: 1.5rem;
+}
+
+.complete {
+	content: "\2022";
+	color: lightblue;
+}
+
+ul {
+	list-style: none;
+}

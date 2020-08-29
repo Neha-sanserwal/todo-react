@@ -1,22 +1,46 @@
-li {
+.message {
 	font-size: 1.2rem;
 }
 
-li::before {
-	content: ' \25AE';
-	margin-right: 0.5rem;
-	display: inline;
-	font-size: 1.5rem;
-	text-decoration: none !important;
+.task {
+	display: flex;
+	margin-bottom: 1rem;
+	font-weight: 900;
+	cursor: pointer;
 }
 
-.un-complete::before {
-	color: lightblue;
+.todo {
+	display: flex;
+	flex-flow: column;
+	padding: 3rem;
+	width: 60%;
+	margin: 0 auto;
+}
+
+.tasks {
+	display: flex;
+	flex-flow: column;
+	min-height: 3rem;
 
 }
 
-.complete::before {
-	color: lightseagreen;
+.complete>.indicator {
+	background: seagreen;
+}
+
+.complete>.message {
+	text-decoration: line-through;
+}
+
+.indicator {
+	height: 30px;
+	margin-left: 1rem;
+	width: 20px;
+	margin-right: 1rem;
+}
+
+.un-complete>.indicator {
+	background: lightblue;
 }
 
 .complete {
@@ -25,4 +49,11 @@ li::before {
 
 ul {
 	list-style: none;
+}
+
+input {
+
+	height: 2rem;
+	font-size: 1.2rem;
+	width: 60%;
 }

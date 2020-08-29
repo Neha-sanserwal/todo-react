@@ -17,7 +17,7 @@ class Input extends Component {
   }
 
   handleTask(event) {
-    if (event.charCode === 13) {
+    if (event.charCode === 13 && this.state.value !== "") {
       this.props.saveTask(this.state.value);
       this.setState((prevState) => ({ value: "" }));
     }

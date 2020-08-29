@@ -3,21 +3,39 @@ import "./todo.css";
 import Input from "./Input";
 
 const Task = (props) => {
+  const { isCompleted, message, taskId, changeStatus } = props;
+  const className = isCompleted ? "complete" : "un-complete";
+
   return (
-    <li
-      className={props.isCompleted ? "complete" : "un-complete"}
-      key={props.taskId}
-    >
-      {props.message}
-    </li>
+    <div className={`task  ${className}`}>
+      <div className="indicator"></div>
+      <div
+        className="message"
+        key={taskId}
+        onClick={() =>
+          changeStatus({ isCompleted: !isCompleted, message }, taskId)
+        }
+      >
+        {message}
+      </div>
+    </div>
   );
 };
 const TodoList = (props) => {
-  const list = Object.keys(props.tasks).map((taskId, index) => {
-    const { message, isCompleted } = props.tasks[taskId];
-    return <Task key={taskId} message={message} isCompleted={isCompleted} />;
+  const { changeStatus, tasks } = props;
+  const list = Object.keys(tasks).map((taskId) => {
+    const { message, isCompleted } = tasks[taskId];
+    return (
+      <Task
+        key={taskId}
+        message={message}
+        isCompleted={isCompleted}
+        taskId={taskId}
+        changeStatus={changeStatus}
+      />
+    );
   });
-  return <ul>{list}</ul>;
+  return <div className="tasks">{list}</div>;
 };
 
 class Todo extends Component {
@@ -25,19 +43,11 @@ class Todo extends Component {
     super(props);
 
     this.state = {
-      tasks: {
-        0: {
-          message: "Buy milk",
-          isCompleted: true,
-        },
-        1: {
-          message: "Buy pencil",
-          isCompleted: false,
-        },
-      },
-      lastTodoId: 2,
+      tasks: {},
+      lastTodoId: 0,
     };
     this.saveTask = this.saveTask.bind(this);
+    this.changeTask = this.changeTask.bind(this);
   }
 
   saveTask(message) {
@@ -48,10 +58,18 @@ class Todo extends Component {
     }));
   }
 
+  changeTask(task, taskId) {
+    this.setState((prevState) => ({
+      tasks: Object.assign(prevState.tasks, { [taskId]: task }),
+    }));
+  }
+
   render() {
     return (
-      <div>
-        <TodoList tasks={this.state.tasks} />
+      <div className="todo">
+        <h1>Todo</h1>
+
+        <TodoList tasks={this.state.tasks} changeStatus={this.changeTask} />
         <Input saveTask={this.saveTask} />
       </div>
     );

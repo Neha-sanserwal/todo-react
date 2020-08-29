@@ -1,26 +1,8 @@
 import React, { Component } from "react";
 import "./todo.css";
 import Input from "./Input";
+import Task from "./Task";
 
-const Task = (props) => {
-  const { isCompleted, message, taskId, changeStatus } = props;
-  const className = isCompleted ? "complete" : "un-complete";
-
-  return (
-    <div className={`task  ${className}`}>
-      <div className="indicator"></div>
-      <div
-        className="message"
-        key={taskId}
-        onClick={() =>
-          changeStatus({ isCompleted: !isCompleted, message }, taskId)
-        }
-      >
-        {message}
-      </div>
-    </div>
-  );
-};
 const TodoList = (props) => {
   const { changeStatus, tasks } = props;
   const list = Object.keys(tasks).map((taskId) => {

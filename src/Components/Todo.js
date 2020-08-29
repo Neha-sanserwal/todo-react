@@ -68,7 +68,6 @@ class Todo extends Component {
     return (
       <div className="todo">
         <h1>Todo</h1>
-
         <TodoList tasks={this.state.tasks} changeStatus={this.changeTask} />
         <Input saveTask={this.saveTask} />
       </div>

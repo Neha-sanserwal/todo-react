@@ -1,7 +1,7 @@
 import React from "react";
 
 const Task = (props) => {
-  const { isCompleted, message, taskId } = this.props;
+  const { isCompleted, message, taskId } = props;
   const className = isCompleted ? "complete" : "un-complete";
   return (
     <div

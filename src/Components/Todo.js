@@ -6,24 +6,29 @@ class Todo extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      tasks: {},
+      tasks: [],
       lastTodoId: 0,
     };
     this.saveTask = this.saveTask.bind(this);
-    this.changeTask = this.changeTask.bind(this);
+    this.handleTask = this.handleTask.bind(this);
   }
 
   saveTask(message) {
-    const task = { message, isCompleted: false };
-    this.setState((prevState) => ({
-      tasks: Object.assign(prevState.tasks, { [prevState.lastTodoId]: task }),
-      lastTodoId: prevState.lastTodoId + 1,
-    }));
+    this.setState((prevState) => {
+      const task = {
+        message,
+        isCompleted: false,
+        taskId: prevState.lastTodoId,
+      };
+      const prevTasks = prevState.tasks.slice();
+      prevTasks.push(task);
+      return { tasks: prevTasks, lastTodoId: prevState.lastTodoId + 1 };
+    });
   }
 
-  changeTask(task, taskId) {
+  handleTask(tasks) {
     this.setState((prevState) => ({
-      tasks: Object.assign(prevState.tasks, { [taskId]: task }),
+      tasks: tasks,
     }));
   }
 
@@ -31,7 +36,7 @@ class Todo extends Component {
     return (
       <div className="todo">
         <h1>Todo</h1>
-        <TaskList tasks={this.state.tasks} changeStatus={this.changeTask} />
+        <TaskList tasks={this.state.tasks} handleTask={this.handleTask} />
         <Input saveTask={this.saveTask} />
       </div>
     );

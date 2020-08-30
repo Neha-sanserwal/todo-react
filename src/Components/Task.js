@@ -1,13 +1,12 @@
 import React from "react";
-const isCompleted = (status) => {
+const getClassName = (status) => {
   return status ? "complete" : "un-complete";
 };
 
 const Task = (props) => {
   const { status, message, taskId, handleClick } = props;
-  const className = status.inProcess
-    ? "in-process"
-    : isCompleted(status.isCompleted);
+  const { isCompleted, inProcess } = status;
+  const className = inProcess ? "in-process" : getClassName(isCompleted);
   return (
     <div className={`task  ${className}`} onClick={() => handleClick(taskId)}>
       <div className="indicator"></div>

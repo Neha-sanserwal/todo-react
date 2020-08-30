@@ -13,16 +13,21 @@ class Todo extends Component {
     this.handleTask = this.handleTask.bind(this);
   }
 
+  createNewTask(message, id) {
+    return {
+      message,
+      status: { inProcess: false, isCompleted: false },
+      taskId: id,
+    };
+  }
+
   saveTask(message) {
     this.setState((prevState) => {
-      const task = {
-        message,
-        isCompleted: false,
-        taskId: prevState.lastTodoId,
-      };
-      const prevTasks = prevState.tasks.slice();
+      const { tasks, lastTodoId } = prevState;
+      const task = this.createNewTask(message, lastTodoId);
+      const prevTasks = tasks.slice();
       prevTasks.push(task);
-      return { tasks: prevTasks, lastTodoId: prevState.lastTodoId + 1 };
+      return { tasks: prevTasks, lastTodoId: lastTodoId + 1 };
     });
   }
 

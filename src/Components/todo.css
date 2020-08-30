@@ -28,6 +28,10 @@
 	background: seagreen;
 }
 
+.in-process>.indicator {
+	background: orange;
+}
+
 .complete>.message {
 	text-decoration: line-through;
 }

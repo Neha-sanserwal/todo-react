@@ -32,7 +32,7 @@ class TasksHeading extends Component {
         />
       );
     }
-    return heading;
+    return <div>{heading}</div>;
   }
 }
 

@@ -9,25 +9,26 @@ class Input extends Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
-  handleChange(event, base) {
+  handleChange(event) {
     const newVal = event.target.value;
     this.setState((prevState) => ({
       value: newVal,
     }));
   }
 
-  handleTask(event) {
+  handleKey(event) {
     if (event.charCode === 13 && this.state.value !== "") {
       this.props.handleValue(this.state.value);
       this.setState((prevState) => ({ value: "" }));
     }
   }
+
   render() {
     return (
       <input
         className={this.props.className}
         value={this.state.value}
-        onKeyPress={(event) => this.handleTask(event)}
+        onKeyPress={(event) => this.handleKey(event)}
         onChange={(event) => this.handleChange(event)}
       />
     );

@@ -7,6 +7,7 @@ class TaskList extends Component {
     this.state = {};
     this.handleClick = this.handleClick.bind(this);
   }
+
   handleClick(taskId) {
     const { tasks } = this.props;
     for (let task of tasks) {
@@ -14,8 +15,9 @@ class TaskList extends Component {
         task.status = getNextStatus(task.status);
       }
     }
-    this.props.handleTask(tasks);
+    this.props.handleTasks(tasks);
   }
+
   render() {
     const { tasks } = this.props;
     const list = tasks.map((task, index) => {

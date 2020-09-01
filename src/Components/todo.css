@@ -55,9 +55,19 @@ ul {
 	list-style: none;
 }
 
-input {
-
+.taskInput {
+	margin: 1rem 0 1rem 0;
 	height: 2rem;
-	font-size: 1.2rem;
+	font-size: 1.5rem;
+	padding: 0.5rem;
 	width: 60%;
+}
+
+.titleInput {
+	margin: 1rem 0 1rem 0;
+	padding: 0.5rem;
+	height: 2rem;
+	font-size: 2rem;
+	width: 60%;
+	font-weight: 900;
 }

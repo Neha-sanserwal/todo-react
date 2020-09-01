@@ -25,6 +25,7 @@ class Input extends Component {
   render() {
     return (
       <input
+        className={this.props.className}
         value={this.state.value}
         onKeyPress={(event) => this.handleTask(event)}
         onChange={(event) => this.handleChange(event)}

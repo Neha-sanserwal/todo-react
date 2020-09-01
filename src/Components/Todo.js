@@ -8,12 +8,13 @@ class Todo extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      title: "All TODO",
+      heading: "All TODO",
       tasks: [],
       lastTodoId: 0,
     };
     this.saveTask = this.saveTask.bind(this);
     this.handleTask = this.handleTask.bind(this);
+    this.changeHeading = this.changeHeading.bind(this);
   }
 
   createNewTask(message, id) {
@@ -41,18 +42,22 @@ class Todo extends Component {
   }
 
   changeHeading(value) {
-    console.log(value);
+    this.setState((prevState) => ({
+      heading: value,
+    }));
   }
 
   render() {
+    const { heading, tasks } = this.state;
     return (
       <div className="todo">
-        <TasksHeading
-          value={this.state.title}
-          handleValue={this.changeHeading}
+        <TasksHeading value={heading} changeHeading={this.changeHeading} />
+        <TaskList tasks={tasks} handleTask={this.handleTask} />
+        <Input
+          className="taskInput"
+          initialValue=""
+          handleValue={this.saveTask}
         />
-        <TaskList tasks={this.state.tasks} handleTask={this.handleTask} />
-        <Input initialValue="" handleValue={this.saveTask} />
       </div>
     );
   }

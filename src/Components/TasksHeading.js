@@ -10,19 +10,22 @@ class TasksHeading extends Component {
     this.handleClick = this.handleClick.bind(this);
     this.handleValue = this.handleValue.bind(this);
   }
-
   handleClick() {
-    this.setState((prevState) => ({ editMode: !prevState.editMode }));
+    this.setState((prevState) => ({ editMode: true }));
   }
 
   handleValue(value) {
     this.props.changeHeading(value);
-    this.handleClick();
+    this.setState((prevState) => ({ editMode: false }));
   }
 
   render() {
     const { value } = this.props;
-    let heading = <h1 onClick={this.handleClick}>{this.props.value}</h1>;
+    let heading = (
+      <h1 className="heading" onClick={this.handleClick}>
+        {this.props.value}
+      </h1>
+    );
     if (this.state.editMode) {
       heading = (
         <Input

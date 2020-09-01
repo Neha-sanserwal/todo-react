@@ -29,9 +29,7 @@ class Todo extends Component {
     this.setState((prevState) => {
       const { tasks, lastTodoId } = prevState;
       const task = this.createNewTask(message, lastTodoId);
-      const prevTasks = tasks.slice();
-      prevTasks.push(task);
-      return { tasks: prevTasks, lastTodoId: lastTodoId + 1 };
+      return { tasks: [...tasks, task], lastTodoId: lastTodoId + 1 };
     });
   }
 

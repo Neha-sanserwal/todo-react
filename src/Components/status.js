@@ -12,8 +12,6 @@ const getNextStatus = (currentStatus) => {
   return nextStatus[currentStatus];
 };
 
-const getDefaultStatus = () => {
-  return DUE;
-};
+const getDefaultStatus = () => DUE;
 
-module.exports = { getDefaultStatus, getNextStatus };
+export { getDefaultStatus, getNextStatus };

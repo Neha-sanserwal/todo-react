@@ -24,15 +24,15 @@
 
 }
 
-.complete>.indicator {
+.completed>.indicator {
 	background: seagreen;
 }
 
-.in-process>.indicator {
+.processing>.indicator {
 	background: orange;
 }
 
-.complete>.message {
+.completed>.message {
 	text-decoration: line-through;
 }
 
@@ -43,11 +43,11 @@
 	margin-right: 1rem;
 }
 
-.un-complete>.indicator {
+.due>.indicator {
 	background: lightblue;
 }
 
-.complete {
+.completed {
 	text-decoration: line-through;
 }
 

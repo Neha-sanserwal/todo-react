@@ -2,10 +2,13 @@ import React, { Component } from "react";
 import "./todo.css";
 import Input from "./Input";
 import TaskList from "./TaskList";
+import { getDefaultStatus } from "./status";
+import TasksHeading from "./TasksHeading";
 class Todo extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      title: "All TODO",
       tasks: [],
       lastTodoId: 0,
     };
@@ -16,7 +19,7 @@ class Todo extends Component {
   createNewTask(message, id) {
     return {
       message,
-      status: { inProcess: false, isCompleted: false },
+      status: getDefaultStatus(),
       taskId: id,
     };
   }
@@ -37,12 +40,19 @@ class Todo extends Component {
     }));
   }
 
+  changeHeading(value) {
+    console.log(value);
+  }
+
   render() {
     return (
       <div className="todo">
-        <h1>Todo</h1>
+        <TasksHeading
+          value={this.state.title}
+          handleValue={this.changeHeading}
+        />
         <TaskList tasks={this.state.tasks} handleTask={this.handleTask} />
-        <Input saveTask={this.saveTask} />
+        <Input initialValue="" handleValue={this.saveTask} />
       </div>
     );
   }

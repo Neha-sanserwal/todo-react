@@ -1,17 +1,6 @@
 import React, { Component } from "react";
 import Task from "./Task";
-
-const changeStatus = (status) => {
-  const { inProcess, isCompleted } = status;
-  if (inProcess) {
-    return { inProcess: !inProcess, isCompleted: !isCompleted };
-  }
-  if (isCompleted) {
-    return { inProcess, isCompleted: !isCompleted };
-  }
-  return { inProcess: !inProcess, isCompleted };
-};
-
+import { getNextStatus } from "./status";
 class TaskList extends Component {
   constructor(props) {
     super(props);
@@ -22,7 +11,7 @@ class TaskList extends Component {
     const { tasks } = this.props;
     for (let task of tasks) {
       if (task.taskId === taskId) {
-        task.status = changeStatus(task.status);
+        task.status = getNextStatus(task.status);
       }
     }
     this.props.handleTask(tasks);

@@ -4,7 +4,7 @@ class Input extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: "",
+      value: this.props.initialValue,
     };
     this.handleChange = this.handleChange.bind(this);
   }
@@ -18,7 +18,7 @@ class Input extends Component {
 
   handleTask(event) {
     if (event.charCode === 13 && this.state.value !== "") {
-      this.props.saveTask(this.state.value);
+      this.props.handleValue(this.state.value);
       this.setState((prevState) => ({ value: "" }));
     }
   }

@@ -1,5 +1,17 @@
-.message {
-	font-size: 1.2rem;
+.todo {
+	display: flex;
+	flex-flow: column;
+	padding: 3rem;
+	width: 60%;
+	margin: 0 auto;
+}
+
+
+.tasks {
+	display: flex;
+	flex-flow: column;
+	min-height: 3rem;
+
 }
 
 .task-box {
@@ -14,22 +26,6 @@
 	cursor: pointer;
 	flex-wrap: wrap;
 	width: 60%;
-}
-
-
-.todo {
-	display: flex;
-	flex-flow: column;
-	padding: 3rem;
-	width: 60%;
-	margin: 0 auto;
-}
-
-.tasks {
-	display: flex;
-	flex-flow: column;
-	min-height: 3rem;
-
 }
 
 .completed>.indicator {
@@ -59,9 +55,10 @@
 	text-decoration: line-through;
 }
 
-ul {
-	list-style: none;
+.message {
+	font-size: 1.2rem;
 }
+
 
 .taskInput {
 	margin: 1rem 0 1rem 0;

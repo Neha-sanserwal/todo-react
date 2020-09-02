@@ -6,6 +6,7 @@ class TaskList extends Component {
     super(props);
     this.state = {};
     this.handleClick = this.handleClick.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
   }
 
   handleClick(taskId) {
@@ -16,6 +17,16 @@ class TaskList extends Component {
       }
     }
     this.props.handleTasks(tasks);
+  }
+
+  handleDelete(taskId) {
+    const { tasks } = this.props;
+    const updatedTask = tasks.filter((task) => {
+      if (task.taskId !== taskId) {
+        return task;
+      }
+    });
+    // console.log(updatedTask);
   }
 
   render() {
@@ -29,6 +40,7 @@ class TaskList extends Component {
           status={status}
           taskId={taskId}
           handleClick={this.handleClick}
+          handleDelete={this.handleDelete}
         />
       );
     });

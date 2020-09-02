@@ -21,12 +21,8 @@ class TaskList extends Component {
 
   handleDelete(taskId) {
     const { tasks } = this.props;
-    const updatedTask = tasks.filter((task) => {
-      if (task.taskId !== taskId) {
-        return task;
-      }
-    });
-    // console.log(updatedTask);
+    const updatedTask = tasks.filter((task) => task.taskId !== taskId);
+    this.props.handleTasks(updatedTask);
   }
 
   render() {

@@ -2,12 +2,20 @@
 	font-size: 1.2rem;
 }
 
+.task-box {
+	display: flex;
+	width: 100%;
+}
+
 .task {
 	display: flex;
 	margin-bottom: 1rem;
 	font-weight: 900;
 	cursor: pointer;
+	flex-wrap: wrap;
+	width: 90%;
 }
+
 
 .todo {
 	display: flex;
@@ -70,4 +78,16 @@ ul {
 	font-size: 2rem;
 	width: 60%;
 	font-weight: 900;
+	cursor: pointer;
+}
+
+.delete-btn {
+	display: none;
+	cursor: pointer;
+	font-weight: 600;
+	color: gray;
+}
+
+.task-box:hover .delete-btn {
+	display: inline-block;
 }

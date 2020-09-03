@@ -60,6 +60,7 @@ class Todo extends Component {
   deleteTasks() {
     this.setState((prevState) => ({
       tasks: [],
+      heading: "Todo",
     }));
   }
 

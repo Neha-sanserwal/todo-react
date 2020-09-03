@@ -4,6 +4,7 @@
 	padding: 3rem;
 	width: 60%;
 	margin: 0 auto;
+	justify-content: space-evenly;
 }
 
 .tasks {
@@ -23,10 +24,11 @@
 
 .task {
 	display: flex;
-	margin-bottom: 1rem;
 	font-weight: 900;
 	cursor: pointer;
 	flex-wrap: wrap;
+	box-sizing: border-box;
+	padding: 1rem 0 1rem 0;
 	width: 90%;
 }
 
@@ -99,5 +101,4 @@
 	cursor: pointer;
 	font-weight: 600;
 	color: gray;
-	width: 10%;
 }

@@ -1,5 +1,13 @@
 import React, { Component } from "react";
-
+const DeleteBtn = (props) => {
+  const { id, onClick } = props;
+  return (
+    <div className="delete-btn" onClick={() => onClick(id)}>
+      {" "}
+      X{" "}
+    </div>
+  );
+};
 class Task extends Component {
   constructor(props) {
     super(props);
@@ -15,6 +23,7 @@ class Task extends Component {
 
   render() {
     const { status, message, taskId, toggleStatus, deleteTask } = this.props;
+
     return (
       <div
         className="task-box"
@@ -28,9 +37,7 @@ class Task extends Component {
           </div>
         </div>
         {this.state.isHovering && (
-          <div className="delete-btn" onClick={() => deleteTask(taskId)}>
-            X
-          </div>
+          <DeleteBtn id={taskId} onClick={deleteTask} />
         )}
       </div>
     );

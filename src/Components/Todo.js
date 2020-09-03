@@ -24,14 +24,14 @@ class Todo extends Component {
       status: getDefaultStatus(),
       taskId: id,
     };
-  }
+  } // gives a task object
 
   saveTask(message) {
     this.setState(({ tasks, lastTodoId }) => {
       const task = this.createNewTask(message, lastTodoId);
       return { tasks: [...tasks, task], lastTodoId: lastTodoId + 1 };
     });
-  }
+  } // saves task in state
 
   toggleTaskStatus(taskId) {
     this.setState(({ tasks }) => {

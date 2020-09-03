@@ -8,7 +8,7 @@ class Todo extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      heading: "Todo",
+      heading: this.props.heading,
       tasks: [],
       lastTodoId: 0,
     };
@@ -60,7 +60,7 @@ class Todo extends Component {
   deleteTasks() {
     this.setState((prevState) => ({
       tasks: [],
-      heading: "Todo",
+      heading: this.props.heading,
     }));
   }
 

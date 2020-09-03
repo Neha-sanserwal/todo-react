@@ -99,6 +99,8 @@
 .delete-btn {
 	display: flex;
 	cursor: pointer;
-	font-weight: 600;
+	font-weight: 800;
 	color: gray;
+	align-items: center;
+	font-size: 1.2rem;
 }

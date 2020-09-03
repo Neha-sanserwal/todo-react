@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Input from "./Input";
-
+import DeleteBtn from "./DeleteBtn";
 class TasksHeading extends Component {
   constructor(props) {
     super(props);
@@ -20,11 +20,12 @@ class TasksHeading extends Component {
   }
 
   render() {
-    const { value } = this.props;
+    const { value, onDelete } = this.props;
     let heading = (
-      <h1 className="heading" onClick={this.handleClick}>
-        {this.props.value}
-      </h1>
+      <div className="heading">
+        <h1 onClick={this.handleClick}>{this.props.value}</h1>
+        <DeleteBtn id={0} onClick={onDelete} />
+      </div>
     );
     if (this.state.editMode) {
       heading = (

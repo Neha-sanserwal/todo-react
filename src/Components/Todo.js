@@ -16,6 +16,7 @@ class Todo extends Component {
     this.toggleTaskStatus = this.toggleTaskStatus.bind(this);
     this.changeHeading = this.changeHeading.bind(this);
     this.deleteTask = this.deleteTask.bind(this);
+    this.deleteTasks = this.deleteTasks.bind(this);
   }
 
   createNewTask(message, id) {
@@ -56,11 +57,21 @@ class Todo extends Component {
     }));
   }
 
+  deleteTasks() {
+    this.setState((prevState) => ({
+      tasks: [],
+    }));
+  }
+
   render() {
     const { heading, tasks } = this.state;
     return (
       <div className="todo">
-        <TasksHeading value={heading} changeHeading={this.changeHeading} />
+        <TasksHeading
+          value={heading}
+          changeHeading={this.changeHeading}
+          onDelete={this.deleteTasks}
+        />
         <TaskList
           tasks={tasks}
           handleStatus={this.toggleTaskStatus}

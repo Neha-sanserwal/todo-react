@@ -1,13 +1,5 @@
 import React, { Component } from "react";
-const DeleteBtn = (props) => {
-  const { id, onClick } = props;
-  return (
-    <div className="delete-btn" onClick={() => onClick(id)}>
-      {" "}
-      X{" "}
-    </div>
-  );
-};
+import DeleteBtn from "./DeleteBtn";
 class Task extends Component {
   constructor(props) {
     super(props);

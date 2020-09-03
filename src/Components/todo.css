@@ -78,6 +78,15 @@
 	cursor: pointer;
 }
 
+
+.heading {
+	display: flex;
+	align-items: center;
+	width: 60%;
+	font-weight: 900;
+	justify-content: space-between;
+}
+
 .delete-btn {
 	display: flex;
 	cursor: pointer;

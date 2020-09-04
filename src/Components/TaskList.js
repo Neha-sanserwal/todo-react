@@ -1,18 +1,19 @@
 import React from "react";
 import Task from "./Task";
+import WithDelete from "./WithDelete";
 
 export default (props) => {
   const { tasks, handleStatus, deleteTask } = props;
   const list = tasks.map((task, index) => {
     const { message, status, taskId } = task;
+    const TaskWithDelete = WithDelete(Task, deleteTask);
     return (
-      <Task
+      <TaskWithDelete
         key={index}
         message={message}
         status={status}
-        taskId={taskId}
+        id={taskId}
         toggleStatus={() => handleStatus(taskId)}
-        deleteTask={() => deleteTask(taskId)}
       />
     );
   });

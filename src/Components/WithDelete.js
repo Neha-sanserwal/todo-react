@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import DeleteBtn from "./DeleteBtn";
-export default function (ComponentToAdd, id, onDelete) {
+export default function (ComponentToAdd, onDelete) {
   return class extends Component {
     constructor(props) {
       super(props);
@@ -34,7 +34,7 @@ export default function (ComponentToAdd, id, onDelete) {
         >
           <ComponentToAdd {...this.props} />
           {this.state.isHovering && (
-            <DeleteBtn onClick={() => this.handleClick(id)} />
+            <DeleteBtn onClick={() => this.handleClick(this.props.id)} />
           )}
         </div>
       );

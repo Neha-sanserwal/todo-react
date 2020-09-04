@@ -67,7 +67,7 @@ class Todo extends Component {
 
   render() {
     const { heading, tasks } = this.state;
-    const HeadingWithDelete = WithDelete(TasksHeading, 0, this.deleteTask);
+    const HeadingWithDelete = WithDelete(TasksHeading, this.deleteTasks);
     return (
       <div className="todo">
         <HeadingWithDelete value={heading} changeHeading={this.changeHeading} />

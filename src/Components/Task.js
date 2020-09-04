@@ -1,38 +1,13 @@
-import React, { Component } from "react";
-import DeleteBtn from "./DeleteBtn";
-class Task extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isHovering: false,
-    };
-    this.handleMouseHover = this.handleMouseHover.bind(this);
-  }
-
-  handleMouseHover() {
-    this.setState((prevState) => ({ isHovering: !prevState.isHovering }));
-  }
-
-  render() {
-    const { status, message, taskId, toggleStatus, deleteTask } = this.props;
-
-    return (
-      <div
-        className="task-box"
-        onMouseEnter={this.handleMouseHover}
-        onMouseLeave={this.handleMouseHover}
-      >
-        <div className={`task ${status}`} onClick={() => toggleStatus(taskId)}>
-          <div className="indicator"></div>
-          <div className="message" key={taskId}>
-            {message}
-          </div>
-        </div>
-        {this.state.isHovering && (
-          <DeleteBtn id={taskId} onClick={deleteTask} />
-        )}
+import React from "react";
+const Task = (props) => {
+  const { status, message, id, toggleStatus } = props;
+  return (
+    <div className={`task ${status}`} onClick={toggleStatus}>
+      <div className="indicator"></div>
+      <div className="message" key={id}>
+        {message}
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 export default Task;

@@ -1,12 +1,10 @@
 import React, { Component } from "react";
 import Input from "./Input";
-import DeleteBtn from "./DeleteBtn";
 class TasksHeading extends Component {
   constructor(props) {
     super(props);
     this.state = {
       editMode: false,
-      isHovering: false,
     };
     this.handleClick = this.handleClick.bind(this);
     this.handleValue = this.handleValue.bind(this);

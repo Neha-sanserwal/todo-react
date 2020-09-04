@@ -4,6 +4,7 @@ import Input from "./Input";
 import TaskList from "./TaskList";
 import { getDefaultStatus, getNextStatus } from "./status";
 import TasksHeading from "./TasksHeading";
+import WithDelete from "./WithDelete";
 class Todo extends Component {
   constructor(props) {
     super(props);
@@ -66,13 +67,10 @@ class Todo extends Component {
 
   render() {
     const { heading, tasks } = this.state;
+    const HeadingWithDelete = WithDelete(TasksHeading, this.deleteTask);
     return (
       <div className="todo">
-        <TasksHeading
-          value={heading}
-          changeHeading={this.changeHeading}
-          onDelete={this.deleteTasks}
-        />
+        <HeadingWithDelete value={heading} changeHeading={this.changeHeading} />
         <TaskList
           tasks={tasks}
           handleStatus={this.toggleTaskStatus}

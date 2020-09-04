@@ -28,7 +28,7 @@ export default function (ComponentToAdd, onDelete) {
     render() {
       return (
         <div
-          className="heading"
+          className="box"
           onMouseEnter={this.handleMouseEnter}
           onMouseLeave={this.handleMouseLeave}
         >

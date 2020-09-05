@@ -1,38 +1,27 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 
-class Input extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      value: this.props.initialValue,
-    };
-    this.handleChange = this.handleChange.bind(this);
-  }
+const Input = (props) => {
+  const [value, setValue] = useState(props.initialValue);
 
-  handleChange(event) {
+  const handleChange = (event) => {
     const newVal = event.target.value;
-    this.setState((prevState) => ({
-      value: newVal,
-    }));
-  }
+    setValue(newVal);
+  };
 
-  handleKey(event) {
-    if (event.charCode === 13 && this.state.value !== "") {
-      this.props.handleValue(this.state.value);
-      this.setState((prevState) => ({ value: "" }));
+  const handleKey = (event) => {
+    if (event.charCode === 13 && value !== "") {
+      props.handleValue(value);
+      setValue("");
     }
-  }
+  };
 
-  render() {
-    return (
-      <input
-        className={this.props.className}
-        value={this.state.value}
-        onKeyPress={(event) => this.handleKey(event)}
-        onChange={(event) => this.handleChange(event)}
-      />
-    );
-  }
-}
-
+  return (
+    <input
+      className={props.className}
+      value={value}
+      onKeyPress={(event) => handleKey(event)}
+      onChange={(event) => handleChange(event)}
+    />
+  );
+};
 export default Input;

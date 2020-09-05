@@ -1,43 +1,18 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import DeleteBtn from "./DeleteBtn";
 export default function (ComponentToAdd, onDelete) {
-  return class extends Component {
-    constructor(props) {
-      super(props);
-      this.state = {
-        isHovering: false,
-      };
-      this.handleMouseEnter = this.handleMouseEnter.bind(this);
-      this.handleMouseLeave = this.handleMouseLeave.bind(this);
-    }
-    handleMouseEnter() {
-      this.setState((prevState) => ({
-        isHovering: true,
-      }));
-    }
-    handleMouseLeave() {
-      this.setState((prevState) => ({
-        isHovering: false,
-      }));
-    }
+  return (props) => {
+    const [isHovering, setIsHovering] = useState(false);
 
-    handleClick(id) {
-      onDelete(id);
-    }
-
-    render() {
-      return (
-        <div
-          className="box"
-          onMouseEnter={this.handleMouseEnter}
-          onMouseLeave={this.handleMouseLeave}
-        >
-          <ComponentToAdd {...this.props} />
-          {this.state.isHovering && (
-            <DeleteBtn onClick={() => this.handleClick(this.props.id)} />
-          )}
-        </div>
-      );
-    }
+    return (
+      <div
+        className="box"
+        onMouseEnter={() => setIsHovering(true)}
+        onMouseLeave={() => setIsHovering(false)}
+      >
+        <ComponentToAdd {...props} />
+        {isHovering && <DeleteBtn onClick={() => onDelete(props.id)} />}
+      </div>
+    );
   };
 }

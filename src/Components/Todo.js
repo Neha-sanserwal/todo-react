@@ -61,6 +61,7 @@ class Todo extends Component {
   deleteTasks() {
     this.setState((prevState) => ({
       tasks: [],
+      lastTodoId: 0,
       heading: this.props.heading,
     }));
   }

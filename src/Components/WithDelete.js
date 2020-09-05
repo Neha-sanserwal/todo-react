@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import DeleteBtn from "./DeleteBtn";
+
 export default function (ComponentToAdd, onDelete) {
   return (props) => {
     const [isHovering, setIsHovering] = useState(false);
-
     return (
       <div
         className="box"

@@ -1,90 +1,74 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import "./todo.css";
 import Input from "./Input";
 import TaskList from "./TaskList";
 import { getDefaultStatus, getNextStatus } from "./status";
 import TasksHeading from "./TasksHeading";
 import WithDelete from "./WithDelete";
-class Todo extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      heading: this.props.heading,
-      tasks: [],
-      lastTodoId: 0,
-    };
-    this.saveTask = this.saveTask.bind(this);
-    this.toggleTaskStatus = this.toggleTaskStatus.bind(this);
-    this.changeHeading = this.changeHeading.bind(this);
-    this.deleteTask = this.deleteTask.bind(this);
-    this.deleteTasks = this.deleteTasks.bind(this);
-  }
 
-  createNewTask(message, id) {
+const Todo = (props) => {
+  const [heading, setHeading] = useState(props.heading);
+  const [tasks, setTasks] = useState([]);
+  const [lastTodoId, setLastTodoId] = useState(0);
+
+  const createNewTask = (message, id) => {
     return {
       message,
       status: getDefaultStatus(),
       taskId: id,
     };
-  } // gives a task object
+  }; // gives a task object
 
-  saveTask(message) {
-    this.setState(({ tasks, lastTodoId }) => {
-      const task = this.createNewTask(message, lastTodoId);
-      return { tasks: [...tasks, task], lastTodoId: lastTodoId + 1 };
+  const saveTask = (message) => {
+    setTasks((tasks) => {
+      const task = createNewTask(message, lastTodoId);
+      return [...tasks, task];
     });
-  } // saves task in state
+    setLastTodoId((lastTodoId) => lastTodoId + 1);
+  }; // saves task in state
 
-  toggleTaskStatus(taskId) {
-    this.setState(({ tasks }) => {
+  const toggleTaskStatus = (taskId) => {
+    setTasks((tasks) => {
       const tasksCopy = tasks.map((task) => ({ ...task })); // Deep cloning the tasks
       const taskToUpdate = tasksCopy.find((task) => task.taskId === taskId); // finding task to toggle
       taskToUpdate.status = getNextStatus(taskToUpdate.status); // get next status
-      return { tasks: tasksCopy }; // update the state
+      return tasksCopy; // update the state
     });
-  }
+  };
 
-  deleteTask(taskId) {
-    this.setState(({ tasks }) => {
-      const tasksCopy = tasks.map((task) => ({ ...task })); // Deep cloning
-      const updatedTasks = tasksCopy.filter((task) => task.taskId !== taskId); // filtering tasks to not delete
-      return { tasks: updatedTasks }; // updating tasks
-    });
-  }
+  const changeHeading = (value) => {
+    setHeading(value);
+  };
 
-  changeHeading(value) {
-    this.setState((prevState) => ({
-      heading: value,
-    }));
-  }
+  const deleteTasks = () => {
+    setTasks([]);
+    setLastTodoId(0);
+    setHeading(props.heading);
+  };
 
-  deleteTasks() {
-    this.setState((prevState) => ({
-      tasks: [],
-      lastTodoId: 0,
-      heading: this.props.heading,
-    }));
-  }
+  const filterTasks = (tasks, taskId) => {
+    const tasksCopy = tasks.map((task) => ({ ...task })); // Deep cloning
+    const updatedTasks = tasksCopy.filter((task) => task.taskId !== taskId); // filtering tasks to not delete
+    return updatedTasks; // updating tasks
+  };
 
-  render() {
-    const { heading, tasks } = this.state;
-    const HeadingWithDelete = WithDelete(TasksHeading, this.deleteTasks);
-    return (
-      <div className="todo">
-        <HeadingWithDelete value={heading} changeHeading={this.changeHeading} />
-        <TaskList
-          tasks={tasks}
-          handleStatus={this.toggleTaskStatus}
-          deleteTask={this.deleteTask}
-        />
-        <Input
-          className="taskInput"
-          initialValue=""
-          handleValue={this.saveTask}
-        />
-      </div>
-    );
-  }
-}
+  const deleteTask = (taskId) => {
+    setTasks((prevTasks) => filterTasks(prevTasks, taskId));
+  };
+
+  const HeadingWithDelete = WithDelete(TasksHeading, deleteTasks);
+
+  return (
+    <div className="todo">
+      <HeadingWithDelete value={heading} changeHeading={changeHeading} />
+      <TaskList
+        tasks={tasks}
+        handleStatus={toggleTaskStatus}
+        deleteTask={deleteTask}
+      />
+      <Input className="taskInput" initialValue="" handleValue={saveTask} />
+    </div>
+  );
+};
 
 export default Todo;

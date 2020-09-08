@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./todo.css";
 import Input from "./Input";
 import TaskList from "./TaskList";
-import { getDefaultStatus, getNextStatus } from "./status";
+import { getDefaultStatus, getNextStatus } from "../status";
 import TasksHeading from "./TasksHeading";
 import WithDelete from "./WithDelete";
 import { useEffect } from "react";
@@ -17,15 +17,15 @@ const Todo = (props) => {
       setHeading(heading);
     });
     Api.getAllTasks().then(({ tasks }) => setTasks(tasks));
-    Api.getLastTodoId().then(({ lastTodoId }) => setLastTodoId(lastTodoId));
   }, []);
 
   const saveTask = (message) => {
-    setTasks((tasks) => {
-      const status = getDefaultStatus();
-      return [...tasks, { message, status, taskId: lastTodoId }];
-    });
-    setLastTodoId((lastTodoId) => lastTodoId + 1);
+    Api.saveTask(message)
+      .then(Api.getAllTasks)
+      .then(({ tasks }) => {
+        console.log(tasks);
+        setTasks(tasks);
+      });
   }; // saves task in state
 
   const toggleTaskStatus = (taskId) => {

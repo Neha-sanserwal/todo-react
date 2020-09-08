@@ -6,9 +6,9 @@ const postReq = (url, data) => {
   });
 };
 
-export const updateHeading = (value) => {
+export const updateHeading = (heading) => {
   return new Promise((resolve, reject) => {
-    postReq("/api/updateHeading", { heading: value })
+    postReq("/api/updateHeading", { heading })
       .then((res) => res.json)
       .then(() => resolve(true));
   });
@@ -20,6 +20,7 @@ export const getCurrentHeading = () => {
       .then(resolve);
   });
 };
+
 export const getAllTasks = () => {
   return new Promise((resolve, reject) => {
     fetch("/api/getAllTasks")
@@ -27,10 +28,11 @@ export const getAllTasks = () => {
       .then(resolve);
   });
 };
-export const getLastTodoId = () => {
+
+export const saveTask = (message) => {
   return new Promise((resolve, reject) => {
-    fetch("/api/getLastTodoId")
-      .then((res) => res.json())
-      .then(resolve);
+    postReq("/api/saveTask", { message })
+      .then((res) => res.json)
+      .then(() => resolve(true));
   });
 };

@@ -1,22 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./todo.css";
 import Input from "./Input";
 import TaskList from "./TaskList";
 import { getDefaultStatus, getNextStatus } from "./status";
 import TasksHeading from "./TasksHeading";
 import WithDelete from "./WithDelete";
-import * as Api from "../Api";
 
 const Todo = (props) => {
   const [heading, setHeading] = useState(props.heading);
   const [tasks, setTasks] = useState([]);
   const [lastTodoId, setLastTodoId] = useState(0);
-
-  useEffect(() => {
-    Api.getCurrentHeading().then(({ heading }) => setHeading(heading));
-    Api.getAllTasks().then(({ tasks }) => setTasks(tasks));
-    Api.getLastTodoId().then(({ lastTodoId }) => setLastTodoId(lastTodoId));
-  }, []);
 
   const saveTask = (message) => {
     setTasks((tasks) => {
@@ -36,9 +29,7 @@ const Todo = (props) => {
   };
 
   const changeHeading = (value) => {
-    Api.updateHeading(value)
-      .then(Api.getCurrentHeading)
-      .then(({ heading }) => setHeading(heading));
+    setHeading(value);
   };
 
   const deleteTasks = () => {

@@ -5,11 +5,20 @@ import TaskList from "./TaskList";
 import { getDefaultStatus, getNextStatus } from "./status";
 import TasksHeading from "./TasksHeading";
 import WithDelete from "./WithDelete";
-
+import { useEffect } from "react";
+import * as Api from "../Api";
 const Todo = (props) => {
-  const [heading, setHeading] = useState(props.heading);
+  const [heading, setHeading] = useState("");
   const [tasks, setTasks] = useState([]);
   const [lastTodoId, setLastTodoId] = useState(0);
+
+  useEffect(() => {
+    Api.getCurrentHeading().then(({ heading }) => {
+      setHeading(heading);
+    });
+    Api.getAllTasks().then(({ tasks }) => setTasks(tasks));
+    Api.getLastTodoId().then(({ lastTodoId }) => setLastTodoId(lastTodoId));
+  }, []);
 
   const saveTask = (message) => {
     setTasks((tasks) => {
@@ -29,7 +38,11 @@ const Todo = (props) => {
   };
 
   const changeHeading = (value) => {
-    setHeading(value);
+    Api.updateHeading(value)
+      .then(Api.getCurrentHeading)
+      .then(({ heading }) => {
+        setHeading(heading);
+      });
   };
 
   const deleteTasks = () => {

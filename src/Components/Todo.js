@@ -23,18 +23,14 @@ const Todo = (props) => {
     Api.saveTask(message)
       .then(Api.getAllTasks)
       .then(({ tasks }) => {
-        console.log(tasks);
         setTasks(tasks);
       });
   }; // saves task in state
 
   const toggleTaskStatus = (taskId) => {
-    setTasks((tasks) => {
-      const tasksCopy = tasks.map((task) => ({ ...task })); // clone
-      const taskToUpdate = tasksCopy.find((task) => task.taskId === taskId); // finding task to toggle
-      taskToUpdate.status = getNextStatus(taskToUpdate.status); // get next status
-      return tasksCopy; // update the state
-    });
+    Api.toggleTaskStatus(taskId)
+      .then(Api.getAllTasks)
+      .then(({ tasks }) => setTasks(tasks));
   };
 
   const changeHeading = (value) => {

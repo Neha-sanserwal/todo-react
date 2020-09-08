@@ -30,7 +30,15 @@ app.post("/api/saveTask", (req, res) => {
   const status = getDefaultStatus();
   todo.tasks.push({ message, status, taskId: todo.lastTodoId });
   todo.lastTodoId++;
-  console.log(todo.tasks);
+  res.end();
+});
+
+app.post("/api/toggleTaskStatus", (req, res) => {
+  const { taskId } = req.body;
+  const tasksCopy = todo.tasks.map((task) => ({ ...task })); // clone
+  const taskToUpdate = tasksCopy.find((task) => task.taskId === taskId); // finding task to toggle
+  taskToUpdate.status = getNextStatus(taskToUpdate.status); // get next status
+  todo.tasks = tasksCopy;
   res.end();
 });
 

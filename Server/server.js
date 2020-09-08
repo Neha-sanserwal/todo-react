@@ -11,11 +11,11 @@ app.get("/api/getCurrentHeading", (req, res) => {
 });
 
 app.get("/api/getLastTodoId", (req, res) => {
-  res.send(JSON.stringify({ lastTodoId: todo.lastTodoId }));
+  res.json({ lastTodoId: todo.lastTodoId });
 });
 
 app.get("/api/getAllTasks", (req, res) => {
-  res.send(JSON.stringify({ lastTodoId: todo.tasks }));
+  res.json({ lastTodoId: todo.tasks });
 });
 
 app.listen(port, () => console.log(`Example app listening on port port!`));

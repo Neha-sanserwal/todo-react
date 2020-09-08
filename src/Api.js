@@ -12,7 +12,7 @@ export const getCurrentHeading = () => {
 };
 export const getAllTasks = () => {
   return new Promise((resolve, reject) => {
-    fetch("/api/getAllTask")
+    fetch("/api//api/getAllTasks")
       .then((res) => res.json())
       .then(resolve);
   });

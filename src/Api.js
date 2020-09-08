@@ -47,3 +47,9 @@ export const toggleTaskStatus = (taskId) => {
     postReq("/api/toggleTaskStatus", { taskId }).then(() => resolve(true));
   });
 };
+
+export const deleteTask = (taskId) => {
+  return new Promise((resolve, reject) => {
+    postReq("/api/deleteTask", { taskId }).then(resolve);
+  });
+};

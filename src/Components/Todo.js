@@ -42,9 +42,13 @@ const Todo = (props) => {
   };
 
   const deleteTasks = () => {
-    setTasks([]);
-    setLastTodoId(0);
-    setHeading(props.heading);
+    Api.deleteAllTasks()
+      .then(Api.getCurrentHeading)
+      .then(({ heading }) => {
+        setHeading(heading);
+      })
+      .then(Api.getAllTasks)
+      .then(({ tasks }) => setTasks(tasks));
   };
 
   const deleteTask = (taskId) => {

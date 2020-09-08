@@ -1,5 +1,4 @@
 const postReq = (url, data) => {
-  console.log(data);
   return fetch(url, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -28,6 +27,12 @@ export const getAllTasks = () => {
     fetch("/api/getAllTasks")
       .then((res) => res.json())
       .then(resolve);
+  });
+};
+
+export const deleteAllTasks = () => {
+  return new Promise((resolve, reject) => {
+    postReq("/api/deleteAllTasks").then(resolve);
   });
 };
 

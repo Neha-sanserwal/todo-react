@@ -4,7 +4,7 @@ const { getDefaultStatus, getNextStatus } = require("./status");
 
 const app = express();
 const port = 8000;
-let todo = { heading: "Todo new", tasks: [], lastTodoId: 0 };
+let todo = { heading: "Todo", tasks: [], lastTodoId: 0 };
 app.use(express.json());
 
 app.get("/api/getCurrentHeading", (req, res) => {
@@ -25,6 +25,11 @@ app.get("/api/getAllTasks", (req, res) => {
   res.json({ tasks: todo.tasks });
 });
 
+app.post("/api/deleteAllTasks", (req, res) => {
+  todo = { heading: "Todo", tasks: [], lastTodoId: 0 };
+  res.end();
+});
+
 app.post("/api/saveTask", (req, res) => {
   const { message } = req.body;
   const status = getDefaultStatus();
@@ -39,6 +44,12 @@ app.post("/api/toggleTaskStatus", (req, res) => {
   const taskToUpdate = tasksCopy.find((task) => task.taskId === taskId); // finding task to toggle
   taskToUpdate.status = getNextStatus(taskToUpdate.status); // get next status
   todo.tasks = tasksCopy;
+  res.end();
+});
+
+app.post("/api/deleteTask", (req, res) => {
+  const { taskId } = req.body;
+  todo.tasks = todo.tasks.filter((task) => task.taskId !== taskId);
   res.end();
 });
 

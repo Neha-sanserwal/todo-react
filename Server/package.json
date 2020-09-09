@@ -10,8 +10,9 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "express": "^4.17.1",
-    "redis": "^3.0.2"
+  "devDependencies": {},
+  "dependencies": {
+    "redis": "^3.0.2",
+    "express": "^4.17.1"
   }
 }

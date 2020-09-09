@@ -1,6 +1,6 @@
 const express = require("express");
 const { getDefaultStatus, getNextStatus } = require("./status");
-const db = require("./redis");
+const db = require("./todoDb");
 const path = require("path");
 const app = express();
 const port = 8000;

@@ -1,56 +1,128 @@
 const express = require("express");
-
 const { getDefaultStatus, getNextStatus } = require("./status");
+
+const redisClient = require("redis").createClient({ db: 1 });
 
 const app = express();
 const port = 8000;
-let todo = { heading: "Todo", tasks: [], lastTodoId: 0 };
-app.use(express.json());
 
+const getFromDb = (key) => {
+  return new Promise((resolve, reject) => {
+    redisClient.get(key, (err, value) => {
+      if (err) {
+        reject(err);
+      }
+      resolve(value);
+    });
+  });
+};
+
+const postToDb = (key, value) => {
+  return new Promise((resolve, reject) => {
+    redisClient.set(key, value, (status) => {
+      resolve(true);
+    });
+  });
+};
+
+const getList = (key) => {
+  return new Promise((resolve, reject) => {
+    redisClient.hgetall(key, (err, data) => {
+      resolve(data);
+    });
+  });
+};
+const pushTo = (key, field, value) => {
+  return new Promise((resolve, reject) => {
+    redisClient.hset(key, field, value, (err, number) => {
+      err && reject(err);
+      resolve(number);
+    });
+  });
+};
+
+const IncrementId = (key) => {
+  return new Promise((resolve, reject) => {
+    redisClient.incr(key, (err, number) => {
+      err && reject(err);
+      resolve(number);
+    });
+  });
+};
+
+const setDbToDefault = async () => {
+  await postToDb("heading", "Todo");
+};
+
+app.use(express.json());
+setDbToDefault();
 app.get("/api/getCurrentHeading", (req, res) => {
-  res.json({ heading: todo.heading });
+  getFromDb("heading").then((heading) => {
+    res.json({ heading });
+  });
 });
 
 app.get("/api/getLastTodoId", (req, res) => {
-  res.json({ lastTodoId: todo.lastTodoId });
+  getFromDb("lastTodoId").then((lastTodoId) => {
+    res.json({ lastTodoId });
+  });
 });
 
 app.post("/api/updateHeading", (req, res) => {
   const { heading } = req.body;
-  todo.heading = heading;
-  res.end();
+  postToDb("heading", heading).then(() => res.end());
 });
 
 app.get("/api/getAllTasks", (req, res) => {
-  res.json({ tasks: todo.tasks });
+  getList("tasks").then((tasks) => {
+    const parsedTasks = tasks || {};
+    const allTasks = Object.values(parsedTasks).map((task) => JSON.parse(task));
+    res.json({ tasks: allTasks });
+  });
 });
 
 app.post("/api/deleteAllTasks", (req, res) => {
-  todo = { heading: "Todo", tasks: [], lastTodoId: 0 };
-  res.end();
+  setDbToDefault().then(() => {
+    redisClient.del("tasks", () => {
+      res.end();
+    });
+  });
 });
 
 app.post("/api/saveTask", (req, res) => {
   const { message } = req.body;
   const status = getDefaultStatus();
-  todo.tasks.push({ message, status, taskId: todo.lastTodoId });
-  todo.lastTodoId++;
-  res.end();
+  IncrementId("lastTodoId")
+    .then((taskId) => {
+      const task = JSON.stringify({ message, status, taskId });
+      pushTo("tasks", `task${taskId}`, task);
+    })
+    .then(() => res.end());
 });
 
 app.post("/api/toggleTaskStatus", (req, res) => {
   const { taskId } = req.body;
-  const tasksCopy = todo.tasks.map((task) => ({ ...task })); // clone
-  const taskToUpdate = tasksCopy.find((task) => task.taskId === taskId); // finding task to toggle
-  taskToUpdate.status = getNextStatus(taskToUpdate.status); // get next status
-  todo.tasks = tasksCopy;
-  res.end();
+  console.log(taskId);
+  redisClient.hget("tasks", `task${taskId}`, (err, task) => {
+    console.log(task);
+    const taskToUpdate = JSON.parse(task);
+    taskToUpdate.status = getNextStatus(taskToUpdate.status); // get next status
+    redisClient.hset(
+      "tasks",
+      `task${taskId}`,
+      JSON.stringify(taskToUpdate),
+      () => {
+        res.end();
+      }
+    );
+  });
 });
 
 app.post("/api/deleteTask", (req, res) => {
   const { taskId } = req.body;
-  todo.tasks = todo.tasks.filter((task) => task.taskId !== taskId);
-  res.end();
+  redisClient.hdel("tasks", `task${taskId}`, () => {
+    res.end();
+  });
 });
 
 app.listen(port, () => console.log(`Example app listening on port port!`));

@@ -1,7 +1,8 @@
-const rtg = require("url");
+const url = require("url");
 const redis = require("redis");
-const redisClient = redis.createClient(rtg.port, rtg.hostname);
-
+var redisURL = url.parse(process.env.REDIS_URL);
+const redisClient = redis.createClient(redisURL.port, redisURL.hostname);
+redisClient.auth(redisURL.auth.split(":")[1]);
 const getFromDb = (key) => {
   return new Promise((resolve, reject) => {
     redisClient.get(key, (err, value) => {

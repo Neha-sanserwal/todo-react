@@ -16,7 +16,9 @@ const setDbToDefault = async () => {
 const buildPath = path.join(__dirname, "..", "build");
 app.use(express.static(buildPath));
 app.use(express.json());
-
+app.get("/*", (req, res) => {
+  res.sendFile(path.join(__dirname, "build", "index.html"));
+});
 setDbToDefault();
 app.get("/api/getCurrentHeading", (req, res) => {
   db.getFromDb(HEADING).then((heading) => {

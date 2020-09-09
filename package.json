@@ -1,0 +1,21 @@
+{
+  "name": "todo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "cd Server;npm install;cd ../Client; npm install; npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Neha-sanserwal/todo-react.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Neha-sanserwal/todo-react/issues"
+  },
+  "homepage": "https://github.com/Neha-sanserwal/todo-react#readme"
+}

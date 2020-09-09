@@ -1,7 +1,7 @@
 const express = require("express");
 const { getDefaultStatus, getNextStatus } = require("./status");
 const db = require("./redis");
-
+const path = require("path");
 const app = express();
 const port = 8000;
 
@@ -13,13 +13,9 @@ const setDbToDefault = async () => {
   await db.postToDb(HEADING, "Todo");
 };
 
+const buildPath = path.join(__dirname, "..", "build");
+app.use(express.static(buildPath));
 app.use(express.json());
-
-app.use(express.static(path.join(__dirname, "client/build")));
-
-// app.get("/*", (req, res) => {
-//   res.sendFile(path.join(__dirname, "build", "index.html"));
-// });
 
 setDbToDefault();
 app.get("/api/getCurrentHeading", (req, res) => {

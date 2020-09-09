@@ -1,7 +1,6 @@
 const rtg = require("url");
 const redis = require("redis");
 const redisClient = redis.createClient(rtg.port, rtg.hostname);
-redisClient.auth(rtg.auth.split(":")[1]);
 
 const getFromDb = (key) => {
   return new Promise((resolve, reject) => {

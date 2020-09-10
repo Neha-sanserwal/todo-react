@@ -87,4 +87,6 @@ app.post("/api/deleteTask", (req, res) => {
   db.deleteField(TASKS, id).then(() => res.end());
 });
 
-app.listen(port, () => console.log(`Example app listening on port port!`));
+app.listen(process.env.PORT || 8000, () =>
+  console.log(`Example app listening on port !${process.env.PORT || 8000}`)
+);

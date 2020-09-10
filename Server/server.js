@@ -3,7 +3,6 @@ const { getDefaultStatus, getNextStatus } = require("./status");
 const db = require("./todoDb");
 const path = require("path");
 const app = express();
-const port = 8000;
 
 const TASKS = "tasks";
 const LAST_TODO_ID = "taskTodoID";

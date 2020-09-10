@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "homepage": "http://Neha-sanserwal.github.io/todo-react",
   "private": true,
-  "proxy": "https://today-todo-react.herokuapp.com/:8000",
+  "proxy": "https://today-todo-react.herokuapp.com/:-p $PORT",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",

@@ -1,7 +1,7 @@
 {
   "name": "todo",
   "version": "0.1.0",
-  "homepage": "http://Neha-sanserwal.github.io/todo-react",
+  "homepage": "https://today-todo-react.herokuapp.com/",
   "private": true,
   "proxy": "https://today-todo-react.herokuapp.com/:-p $PORT",
   "dependencies": {

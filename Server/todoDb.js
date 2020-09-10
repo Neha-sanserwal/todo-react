@@ -4,7 +4,6 @@ let redisClient;
 if (process.env.REDISCLOUD_URL) {
   var redisURL = url.parse(process.env.REDISCLOUD_URL);
   redisClient = redis.createClient(redisURL);
-  console.log(redisURL.auth);
   redisClient.auth(redisURL.auth.split(":")[1]);
 } else {
   redisClient = redis.createClient();

@@ -43,12 +43,12 @@
 	text-decoration: line-through;
 }
 
-.indicator {
+/* .indicator {
 	height: 30px;
 	margin-left: 1rem;
 	width: 20px;
 	margin-right: 1rem;
-}
+} */
 
 .due>.indicator {
 	background: lightblue;

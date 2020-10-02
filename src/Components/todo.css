@@ -50,18 +50,18 @@
 	margin-right: 1rem;
 } */
 
-.due>.indicator {
+/* .due>.indicator {
 	background: lightblue;
-}
+} */
 
 .completed {
 	text-decoration: line-through;
 }
 
-.message {
+/* .message {
 	font-size: 1.2rem;
 	width: 80%;
-}
+} */
 
 
 .taskInput {

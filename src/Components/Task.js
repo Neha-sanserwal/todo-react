@@ -13,15 +13,32 @@ const Indicator = styled.span`
   background: ${(props) => COLORS[props.color]};
 `;
 
+const Message = styled.div`
+  font-size: 1.2rem;
+  width: 80%;
+  text-decoration: ${(props) =>
+    props.status === "completed" ? "line-through" : "none"};
+`;
+
+const TaskBox = styled.div`
+  display: flex;
+  font-weight: 900;
+  cursor: pointer;
+  flex-wrap: wrap;
+  box-sizing: border-box;
+  padding: 1rem 0 1rem 0;
+  width: 90%;
+`;
+
 const Task = (props) => {
   const { status, message, id, toggleStatus } = props;
   return (
-    <div className={`task ${status}`} onClick={toggleStatus}>
+    <TaskBox onClick={toggleStatus}>
       <Indicator color={status}></Indicator>
-      <div className="message" key={id}>
+      <Message status={status} key={id}>
         {message}
-      </div>
-    </div>
+      </Message>
+    </TaskBox>
   );
 };
 export default Task;

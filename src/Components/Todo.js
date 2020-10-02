@@ -1,11 +1,20 @@
 import React, { useState } from "react";
-import "./todo.css";
 import Input from "./Input";
 import TaskList from "./TaskList";
 import TasksHeading from "./TasksHeading";
 import WithDelete from "./WithDelete";
 import { useEffect } from "react";
 import * as Api from "../Api";
+import styled from "styled-components";
+
+const TodoBox = styled.div`
+  display: flex;
+  flex-flow: column;
+  padding: 3rem;
+  width: 60%;
+  margin: 0 auto;
+  justify-content: space-evenly;
+`;
 
 const Todo = (props) => {
   const [heading, setHeading] = useState("");
@@ -57,15 +66,15 @@ const Todo = (props) => {
 
   const HeadingWithDelete = WithDelete(TasksHeading, deleteTasks);
   return (
-    <div className="todo">
+    <TodoBox>
       <HeadingWithDelete value={heading} changeHeading={changeHeading} />
       <TaskList
         tasks={tasks}
         handleStatus={toggleTaskStatus}
         deleteTask={deleteTask}
       />
-      <Input className="taskInput" initialValue="" handleValue={saveTask} />
-    </div>
+      <Input initialValue="" handleValue={saveTask} />
+    </TodoBox>
   );
 };
 

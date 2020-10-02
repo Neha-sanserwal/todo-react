@@ -1,10 +1,12 @@
 import React from "react";
 import styled from "styled-components";
+
 const COLORS = {
   due: "lightblue",
   processing: "orange",
   completed: "seagreen",
 };
+
 const Indicator = styled.span`
   height: 30px;
   margin-left: 1rem;

@@ -14,7 +14,7 @@ const TasksHeading = (props) => {
   if (editMode) {
     heading = (
       <Input
-        className="titleInput"
+        hasBoldText={true}
         initialValue={value}
         handleValue={handleValue}
       />

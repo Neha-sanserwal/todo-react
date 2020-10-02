@@ -1,6 +1,14 @@
 import React from "react";
+import styled from "styled-components";
 import Task from "./Task";
 import WithDelete from "./WithDelete";
+
+const Tasks = styled.div`
+  display: flex;
+  flex-flow: column;
+  min-height: 3rem;
+  padding: 1rem 0 1rem 0;
+`;
 
 export default (props) => {
   const { tasks, handleStatus, deleteTask } = props;
@@ -17,5 +25,5 @@ export default (props) => {
       />
     );
   });
-  return <div className="tasks">{list}</div>;
+  return <Tasks>{list}</Tasks>;
 };

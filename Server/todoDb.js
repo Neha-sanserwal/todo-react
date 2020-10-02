@@ -1,4 +1,3 @@
-const url = require("url");
 const redis = require("redis");
 let redisClient;
 if (process.env.REDISCLOUD_URL) {
